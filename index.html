@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <!-- Permite responsividade em dispositivos móveis -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Orçamentos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Cabeçalho -->
+  <header class="site-header">
+    <div class="container">
+      <h1>Sistema de Orçamentos</h1>
+      <p class="subtitle">Registrar e gerenciar orçamentos de projetos, compras e serviços</p>
+    </div>
+  </header>
+
+  <!-- Conteúdo principal -->
+  <main class="container" id="main">
+    <!-- Seção do formulário de cadastro/edição -->
+    <section aria-labelledby="form-title" class="form-section">
+      <h2 id="form-title">Novo orçamento</h2>
+
+      <!-- Formulário com atributos de acessibilidade -->
+      <form id="orcamentoForm" novalidate>
+        <!-- Campo nome do projeto/serviço -->
+        <div class="field">
+          <label for="titulo">Título / Projeto <span aria-hidden="true">*</span></label>
+          <input type="text" id="titulo" name="titulo" required minlength="3" placeholder="Ex: Reforma do escritório">
+          <small class="error" id="erro-titulo" aria-live="polite"></small>
+        </div>
+
+        <!-- Campo descrição -->
+        <div class="field">
+          <label for="descricao">Descrição</label>
+          <textarea id="descricao" name="descricao" rows="3" placeholder="Detalhes do orçamento (opcional)"></textarea>
+        </div>
+
+        <!-- Campo fornecedor -->
+        <div class="field">
+          <label for="fornecedor">Fornecedor / Responsável <span aria-hidden="true">*</span></label>
+          <input type="text" id="fornecedor" name="fornecedor" required minlength="2" placeholder="Nome do fornecedor">
+          <small class="error" id="erro-fornecedor" aria-live="polite"></small>
+        </div>
+
+        <!-- Campo valor estimado -->
+        <div class="field">
+          <label for="valor">Valor estimado (R$) <span aria-hidden="true">*</span></label>
+          <input type="number" id="valor" name="valor" required min="0" step="0.01" placeholder="Ex: 1500.00">
+          <small class="error" id="erro-valor" aria-live="polite"></small>
+        </div>
+
+        <!-- Data estimada -->
+        <div class="field-row">
+          <div class="field small">
+            <label for="data">Data estimada</label>
+            <input type="date" id="data" name="data">
+          </div>
+
+          <div class="field small">
+            <label for="categoria">Categoria</label>
+            <select id="categoria" name="categoria">
+              <option value="">— Selecionar —</option>
+              <option value="projeto">Projeto</option>
+              <option value="compra">Compra</option>
+              <option value="servico">Serviço</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Botões de ação -->
+        <div class="actions">
+          <button type="submit" id="btnSalvar">Salvar orçamento</button>
+          <button type="button" id="btnLimpar" class="secondary">Limpar</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Seção de controle: busca, filtros e export -->
+    <section class="controls">
+      <div class="control-row">
+        <input type="search" id="busca" placeholder="Buscar por título ou fornecedor">
+        <select id="filtroCategoria">
+          <option value="">Todas as categorias</option>
+          <option value="projeto">Projeto</option>
+          <option value="compra">Compra</option>
+          <option value="servico">Serviço</option>
+        </select>
+        <select id="ordenar">
+          <option value="data-desc">Data (mais recentes)</option>
+          <option value="data-asc">Data (mais antigas)</option>
+          <option value="valor-desc">Valor (maior)</option>
+          <option value="valor-asc">Valor (menor)</option>
+        </select>
+
+        <button id="exportJson" title="Exportar todos os orçamentos como JSON">Exportar JSON</button>
+        <button id="exportCsv" title="Exportar como CSV">Exportar CSV</button>
+      </div>
+    </section>
+
+    <!-- Seção de listagem (tabela/lista) -->
+    <section aria-labelledby="lista-title" class="list-section">
+      <h2 id="lista-title">Orçamentos registrados</h2>
+
+      <!-- Mensagem se não houver itens -->
+      <p id="sem-itens" class="muted">Nenhum orçamento registrado.</p>
+
+      <!-- Lista onde os itens serão inseridos via JS -->
+      <ul id="listaOrcamentos" class="lista"></ul>
+    </section>
+  </main>
+
+  <!-- Rodapé -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2025 — Desenvolvido por Pedro Ítalo</p>
+    </div>
+  </footer>
+
+  <!---- Link para o JS principal (separação de script) -->
+  <script src="app.js" defer></script>
+</body>
+</html>
